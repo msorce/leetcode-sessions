@@ -1,3 +1,3 @@
 # leetcode-sessions
-leetcode sessions, lets go!
-## roadmap: b75 -> patterns -> infinity
+leetcode sessions, lets gooo!
+## roadmap: b75 && patterns -> infinity
