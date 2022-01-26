@@ -21,7 +21,7 @@ var permute = function(nums) {
         }
         // undo using the number;
     }
-    backtrack(nums);
+    backtrack();
     return permutations;
 };
 
