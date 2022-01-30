@@ -1,12 +1,6 @@
-let word = "skateboard";
-let groups = ["ska", "sk", "t" ,]
-let chunks = [];
-
-for (c of groups) {
-	let idx = word.indexOf(c);
-
-	if (idx === 0) {
-		chunks.push(word.slice(c.length));
-	}
-}
-console.log(chunks);
+let word = "";
+word += "A"
+word += "B"
+word += "C"
+word = word.slice(0, word.length - 1)
+console.log(word)
