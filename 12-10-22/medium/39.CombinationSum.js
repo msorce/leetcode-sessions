@@ -27,43 +27,32 @@ Output: []
 
 */
 const combinationSum = function (candidates, target) {
-    // what are we looking for
-    // valid array combinations
-    // what should we use?
     const sums = [];
-	const current = [];
-    const visited = Array(candidates.length).fill(false);
+    const current = [];
 
-    function backtrack() {
-        // goal
-		let sum = current.reduce((a,b) => a+b, 0);
-		if (sum === target) {
-			sums.push([...current]);
-		}
-        // for loop
-        for (let i = 0; i < candidates.length; i++) {
-			// if its not being used
-			if (!visited[i]) {
-
-            // mark bool array
-			visited[i] = true;
-			// use it
-			current.push(candidates[i]);
-            // recurse
-			backtrack();
-            // unmark bool array
-			visited[i] = false;
-			// unuse it
-			current.pop();
-
-			}
+    function backtrack(target, start) {
+        if (target === 0) {
+            sums.push([...current]);
+            return;
+        }
+        if (target < 0) {
+            return;
+        }
+        for (let i = start; i < candidates.length; i++) {
+            current.push(candidates[i]);
+            backtrack(target - candidates[i], i);
+            current.pop();
         }
     }
-	backtrack();
+
+    backtrack(target, 0)
     return sums;
 };
 
-combinationSum([2,3,6,7], 7)
+console.log(combinationSum([2, 3, 6, 4, 7], 7))
 //Output: [[2,2,3],[7]]
 
-// TODO: the issue is we can use numbers multiple times
+// IMPORTANT TIP
+// if we want to get all permutations dont pass in i to backtrack
+// if we want to allow dupes then we can set i to the prev i
+// if we dont want to allow duplicates than we can advance i like i + 1;
