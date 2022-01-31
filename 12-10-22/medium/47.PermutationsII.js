@@ -6,30 +6,41 @@ Given a collection of numbers, nums, that might contain duplicates, return all p
  *
  */
 const permuteUnique = function (nums) {
-    nums.sort((a, b) => a - b);
-    const perms = [];
+    // create results array to return
+    const res = [];
     const current = [];
-    let visited = Array(nums.length).fill(false);
+    let counter = new Map();
+    // create frequency map of each number
+    for (let num of nums) {
+        if (!counter.has(num)) counter.set(num, 0);
+        console.log(counter.get(num));
+        let count = counter.get(num);
+        counter.set(num, count + 1);
+    }
 
+    // call backtrack with freqency
     function backtrack() {
         if (current.length === nums.length) {
-            perms.push([...current]);
+            res.push([...current]);
             return;
         }
-        // if (start > nums.length) return;
-        for (let i = 0; i < nums.length; i++) {
-            if (visited[i]) continue;
-            if (i > 0 && nums[i] === nums[i - 1] && !visited[i - 1]) continue;
+        for (let [key, _] of counter) {
+            let count = counter.get(key);
 
-            visited[i] = true;
-            current.push(nums[i]);
+            if (count === 0) continue;
+            // choose the number
+            current.push(key);
+            counter.set(key, count - 1);
+            // backtrack
             backtrack();
-            visited[i] = false;
+            // unchoose
             current.pop();
+            counter.set(key, count);
         }
     }
     backtrack();
-    return perms;
+    // return results array
+    return res;
 };
 console.log(permuteUnique([1, 1, 2]));
 /**
